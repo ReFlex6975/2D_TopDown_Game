@@ -15,7 +15,7 @@ public class camera : MonoBehaviour
 
     void FixedUpdate()
     {
-        target = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        target = new Vector3(player.transform.position.x, player.transform.position.y, -1);
         transform.position = Vector3.Lerp(transform.position, target, speed * Time.fixedDeltaTime);
     }
 }
