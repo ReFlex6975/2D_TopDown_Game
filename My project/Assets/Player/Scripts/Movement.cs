@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Movement : MonoBehaviour
 {
     public Slider staminaSlider;
-    public float runSpeed = 10f;
-    public float standartSpeed = 5f;
+    public float runSpeed = 7f;
+    public float standartSpeed = 4f;
     public float staminaValue = 5f;
     public float currentSpeed;
     private Rigidbody2D rb;
@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
 
     public float minMovingSpeed = 0.1f;
     private bool isRun = false;
-    
+    private bool isAttacking = false;
 
     void Start()
     {
@@ -29,9 +29,46 @@ public class Movement : MonoBehaviour
         staminaSlider.value = staminaValue;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        HandleMovement();
+        HandleAttack(); // Проверяем атаку независимо от состояния
+
+        if (!isAttacking) // Только если не идёт атака, можно двигаться
+        {
+            HandleMovement();
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if (!isAttacking) 
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Атака начата!");
+                isAttacking = true;
+                animator.SetBool("IsAttacking", true);
+                // Запускаем корутину для завершения атаки
+                StartCoroutine(ResetAttack());
+            }
+        }
+    }
+
+    private IEnumerator ResetAttack()
+    {
+        yield return new WaitForSeconds(0.85f); // Убедитесь, что время совпадает с длительностью анимации атаки
+        Debug.Log("Атака завершена!");
+        isAttacking = false;
+        animator.SetBool("IsAttacking", false);
+    }
+
+    private void FixedUpdate()
+    {
+        // Перемещение управляется в Update, но если вы хотите, вы можете переместить это сюда
+        if (isAttacking == false) // Если атака не выполняется, разрешаем движение
+        {
+            HandleMovement();
+        }
     }
 
     private void HandleMovement()
