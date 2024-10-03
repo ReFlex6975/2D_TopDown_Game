@@ -6,48 +6,73 @@ using UnityEngine.UI;
 public class Movement : MonoBehaviour
 {
     public Slider staminaSlider;
-    public float runSpeed = 10;
-    public float standartSpeed = 5;
-    public float staminaValue = 5;
+    public float runSpeed = 10f;
+    public float standartSpeed = 5f;
+    public float staminaValue = 5f;
     public float currentSpeed;
     private Rigidbody2D rb;
+    private Animator animator;
+
+    public float minMovingSpeed = 0.1f;
+    private bool isRun = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
-        // Настраиваем максимальное значение ползунка
-        staminaSlider.maxValue = 5;
-        staminaSlider.value = staminaValue; // начальное значение
+        // РќР°СЃС‚СЂРѕР№РєР° СЃР»Р°Р№РґРµСЂР° СЃС‚Р°РјРёРЅС‹
+        staminaSlider.maxValue = 5f;
+        staminaSlider.value = staminaValue;
     }
 
     void FixedUpdate()
     {
-        staminaSlider.value = staminaValue; // обновляем значение ползунка
+        HandleMovement();
+    }
 
+    private void HandleMovement()
+    {
+        staminaSlider.value = staminaValue; // РѕР±РЅРѕРІР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ СЃР»Р°Р№РґРµСЂР°
+
+        // РћРїСЂРµРґРµР»СЏРµРј СЃРєРѕСЂРѕСЃС‚СЊ
         currentSpeed = standartSpeed;
         Stamina();
 
-        // Получаем ввод пользователя для движения
+        // РџРѕР»СѓС‡Р°РµРј РІРІРѕРґ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ РґРІРёР¶РµРЅРёСЏ
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = new Vector2(currentSpeed * x, currentSpeed * y);
+        Vector2 inputVector = new Vector2(x, y).normalized;
+        rb.velocity = new Vector2(currentSpeed * inputVector.x, currentSpeed * inputVector.y);
+
+        // РџСЂРѕРІРµСЂСЏРµРј, РґРІРёР¶РµС‚СЃСЏ Р»Рё РёРіСЂРѕРє Рё Р±РµРіР°РµС‚ Р»Рё РѕРЅ
+        if (inputVector.magnitude > minMovingSpeed)
+        {
+            isRun = Input.GetKey(KeyCode.LeftShift) && staminaValue > 0;
+        }
+        else
+        {
+            isRun = false;
+        }
+
+        // РџРµСЂРµРґР°РµРј РїР°СЂР°РјРµС‚СЂ Р°РЅРёРјР°С†РёРё
+        animator.SetBool("IsRunning", isRun);
     }
-    
+
     private void Stamina()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && staminaValue > 0) // расход стамины при беге
+        if (Input.GetKey(KeyCode.LeftShift) && staminaValue > 0) // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         {
             staminaValue -= Time.deltaTime;
             currentSpeed = runSpeed;
         }
-        if (!(Input.GetKey(KeyCode.LeftShift) && staminaValue > 0)) // восполнение стамины, если не нажата клавиша бега
+        if (!(Input.GetKey(KeyCode.LeftShift) && staminaValue > 0)) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         {
             staminaValue += Time.deltaTime;
             currentSpeed = standartSpeed;
         }
-        // Ограничение стамины от 0 до 5
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 5
         if (staminaValue >= 5) staminaValue = 5; 
         if (staminaValue <= 0) staminaValue = 0;
     }
