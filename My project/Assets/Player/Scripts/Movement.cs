@@ -24,16 +24,16 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Настройка слайдера стамины
+   
         staminaSlider.maxValue = 5f;
         staminaSlider.value = staminaValue;
     }
 
     void Update()
     {
-        HandleAttack(); // Проверяем атаку независимо от состояния
+        HandleAttack();
 
-        if (!isAttacking) // Только если не идёт атака, можно двигаться
+        if (!isAttacking)
         {
             HandleMovement();
         }
@@ -41,22 +41,21 @@ public class Movement : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (!isAttacking) 
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
+       
+        
+            if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
             {
                 Debug.Log("Атака начата!");
                 isAttacking = true;
                 animator.SetBool("IsAttacking", true);
-                // Запускаем корутину для завершения атаки
                 StartCoroutine(ResetAttack());
             }
-        }
+       
     }
 
     private IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(0.85f); // Убедитесь, что время совпадает с длительностью анимации атаки
+        yield return new WaitForSeconds(0.85f);
         Debug.Log("Атака завершена!");
         isAttacking = false;
         animator.SetBool("IsAttacking", false);
@@ -64,22 +63,23 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Перемещение управляется в Update, но если вы хотите, вы можете переместить это сюда
-        if (isAttacking == false) // Если атака не выполняется, разрешаем движение
+ 
+        if (isAttacking == true)
         {
             HandleMovement();
         }
+        
     }
 
     private void HandleMovement()
     {
-        staminaSlider.value = staminaValue; // обновление значения слайдера
+        staminaSlider.value = staminaValue;
 
-        // Определяем скорость
+       
         currentSpeed = standartSpeed;
         Stamina();
 
-        // Получаем ввод пользователя для движения
+      
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
@@ -95,7 +95,7 @@ public class Movement : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        // Проверяем, движется ли игрок и бегает ли он
+     
         if (inputVector.magnitude > minMovingSpeed)
         {
             // isRun = Input.GetKey(KeyCode.LeftShift) && staminaValue > 0;
@@ -106,23 +106,23 @@ public class Movement : MonoBehaviour
             isRun = false;
         }
 
-        // Передаем параметр анимации
+      
         animator.SetBool("IsRunning", isRun);
     }
 
     private void Stamina()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && staminaValue > 0) // ������ ������� ��� ����
+        if (Input.GetKey(KeyCode.LeftShift) && staminaValue > 0) 
         {
             staminaValue -= Time.deltaTime;
             currentSpeed = runSpeed;
         }
-        if (!(Input.GetKey(KeyCode.LeftShift) && staminaValue > 0)) // ����������� �������, ���� �� ������ ������� ����
+        if (!(Input.GetKey(KeyCode.LeftShift) && staminaValue > 0)) 
         {
             staminaValue += Time.deltaTime;
             currentSpeed = standartSpeed;
         }
-        // ����������� ������� �� 0 �� 5
+       
         if (staminaValue >= 5) staminaValue = 5; 
         if (staminaValue <= 0) staminaValue = 0;
     }
