@@ -12,14 +12,17 @@ public class Movement : MonoBehaviour
     public float currentSpeed;
     private Rigidbody2D rb;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     public float minMovingSpeed = 0.1f;
     private bool isRun = false;
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Настройка слайдера стамины
         staminaSlider.maxValue = 5f;
@@ -46,10 +49,20 @@ public class Movement : MonoBehaviour
         Vector2 inputVector = new Vector2(x, y).normalized;
         rb.velocity = new Vector2(currentSpeed * inputVector.x, currentSpeed * inputVector.y);
 
+        if (x > 0) // Движение вправо
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (x < 0) // Движение влево
+        {
+            spriteRenderer.flipX = true;
+        }
+
         // Проверяем, движется ли игрок и бегает ли он
         if (inputVector.magnitude > minMovingSpeed)
         {
-            isRun = Input.GetKey(KeyCode.LeftShift) && staminaValue > 0;
+            // isRun = Input.GetKey(KeyCode.LeftShift) && staminaValue > 0;
+            isRun = true;
         }
         else
         {
