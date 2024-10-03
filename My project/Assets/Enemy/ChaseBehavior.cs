@@ -6,7 +6,7 @@ public class ChaseBehavior : MonoBehaviour
 {
     public Transform target; // Цель (игрок)
     public float chaseSpeed = 3.0f; // Скорость преследования
-    public float stopDistance = 2f; // Расстояние, на котором враг останавливается
+    public float stopDistance = 10f; // Расстояние, на котором враг останавливается
 
     private SpriteRenderer spriteRenderer;
 

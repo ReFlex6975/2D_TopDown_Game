@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3bd7cde5532b514b8ad81f2b77e65e4
+guid: cc55b02e662b0924abb2558f0b521000
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -71,7 +71,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -110,190 +110,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: B_witch_attack_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 368
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.18954274, y: 0.4651728}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd70ff26d882fcf4ba0135dedf35787e
-      internalID: -386102338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 322
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19564325, y: 0.51502395}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7404d76c66c65e542b7789c3174d05ca
-      internalID: -1530890850
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 276
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19636545, y: 0.48879275}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93b15382c3d2db5448c81ddfc6aa44d5
-      internalID: 1343451745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 230
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19016883, y: 0.5084063}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dbfb9d4b1e8cd3e42b1c2b5622f3cbc4
-      internalID: -1509449472
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 184
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19636545, y: 0.50000036}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eb9518285cf9e2340813c7681d809529
-      internalID: 607596042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 138
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19016883, y: 0.53362375}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a28a3761b79d04245a8343df78b81db3
-      internalID: -836404825
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 92
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19636545, y: 0.48038682}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b3217332f7a18a54da9c7b6e481fbd73
-      internalID: -473485363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_7
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 46
-        width: 104
-        height: 46
-      alignment: 9
-      pivot: {x: 0.19016883, y: 0.4859906}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40fbff49d5268974395a4456856053dd
-      internalID: 1652459222
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: B_witch_attack_8
+      name: Ghosts 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 104
+        width: 32
         height: 46
-      alignment: 9
-      pivot: {x: 0.19264747, y: 0.4775846}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 379b3ca605dae8345b67058ebf669b9e
-      internalID: 1309330029
+      spriteID: 2d9e83bde1ee38344806c937806aa680
+      internalID: 855699752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghosts 1_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b1ab3844cd08d4ab1912b49f2f2b60
+      internalID: 1483562634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghosts 1_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f43dbcf8b0dfc2246affe037c4846900
+      internalID: -1640342086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghosts 1_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 886dba42cf97a894380be34c9d1da0f0
+      internalID: -707316606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghosts 1_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7044123f444a0b4eb3f207d6cdb3c7a
+      internalID: -1293233936
       vertices: []
       indices: 
       edges: []
@@ -309,15 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      B_witch_attack_0: -386102338
-      B_witch_attack_1: -1530890850
-      B_witch_attack_2: 1343451745
-      B_witch_attack_3: -1509449472
-      B_witch_attack_4: 607596042
-      B_witch_attack_5: -836404825
-      B_witch_attack_6: -473485363
-      B_witch_attack_7: 1652459222
-      B_witch_attack_8: 1309330029
+      Ghosts 1_0: 855699752
+      Ghosts 1_1: 1483562634
+      Ghosts 1_2: -1640342086
+      Ghosts 1_3: -707316606
+      Ghosts 1_4: -1293233936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

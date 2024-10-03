@@ -33,11 +33,14 @@ public class Movement : MonoBehaviour
     {
         HandleAttack();
 
-        if (!isAttacking)
-        {
-            HandleMovement();
-        }
     }
+
+    public void MoveCharRight()
+    {
+        transform.position += new Vector3(2f, 0, 0);
+        Debug.Log("1!");
+    }
+    
 
     private void HandleAttack()
     {
@@ -48,6 +51,9 @@ public class Movement : MonoBehaviour
                 Debug.Log("Атака начата!");
                 isAttacking = true;
                 animator.SetBool("IsAttacking", true);
+
+            
+
                 StartCoroutine(ResetAttack());
             }
        
@@ -55,27 +61,25 @@ public class Movement : MonoBehaviour
 
     private IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(0.85f);
+        
+        yield return new WaitForSeconds(0.5f);
         Debug.Log("Атака завершена!");
         isAttacking = false;
+        
         animator.SetBool("IsAttacking", false);
+        
     }
 
     private void FixedUpdate()
     {
- 
-        if (isAttacking == true)
-        {
-            HandleMovement();
-        }
         
+        HandleMovement();
     }
 
     private void HandleMovement()
     {
         staminaSlider.value = staminaValue;
 
-       
         currentSpeed = standartSpeed;
         Stamina();
 

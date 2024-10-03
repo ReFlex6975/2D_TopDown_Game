@@ -9,6 +9,6 @@ public class FastEnemy : MonoBehaviour
     void Start()
     {
         chaseBehavior = GetComponent<ChaseBehavior>();
-        chaseBehavior.chaseSpeed = 6.0f; // Увеличиваем скорость для быстрого врага
+        chaseBehavior.chaseSpeed = 2.0f; // Увеличиваем скорость для быстрого врага
     }
 }
