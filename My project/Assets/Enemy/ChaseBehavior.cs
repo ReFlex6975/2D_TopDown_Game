@@ -8,6 +8,13 @@ public class ChaseBehavior : MonoBehaviour
     public float chaseSpeed = 3.0f; // Скорость преследования
     public float stopDistance = 2f; // Расстояние, на котором враг останавливается
 
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Получаем SpriteRenderer
+    }
+
     private void Update()
     {
         ChaseTarget();
@@ -24,7 +31,20 @@ public class ChaseBehavior : MonoBehaviour
         if (distanceToTarget > stopDistance)
         {
             Vector2 direction = (target.position - transform.position).normalized; // Направление к цели
+
+            // Двигаем врага в сторону игрока
             transform.position = Vector2.MoveTowards(transform.position, target.position, chaseSpeed * Time.deltaTime);
+
+            // Если враг движется влево (по оси X), поворачиваем спрайт влево
+            if (direction.x < 0)
+            {
+                spriteRenderer.flipX = false; // Поворачиваем спрайт влево
+            }
+            // Если враг движется вправо (по оси X), поворачиваем спрайт вправо
+            else if (direction.x > 0)
+            {
+                spriteRenderer.flipX = true; // Поворачиваем спрайт вправо
+            }
         }
     }
 }
