@@ -31684,11 +31684,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8712672540171523875, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.031
+      value: 6.324
       objectReference: {fileID: 0}
     - target: {fileID: 8712672540171523875, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.058
+      value: -0.399
       objectReference: {fileID: 0}
     - target: {fileID: 8712672540171523875, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31720,18 +31720,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8712672540171523875, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8906179917908728685, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8906179917908728685, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
-      propertyPath: m_UseAutoMass
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8906179917908728685, guid: c9e99e57556784f47b2de9f3beccefe9, type: 3}
-      propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
