@@ -157,16 +157,29 @@ public class Movement : MonoBehaviour
         staminaSlider.value = staminaValue;
         currentSpeed = standartSpeed;
         Stamina();
-
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-
         Vector2 inputVector = new Vector2(x, y).normalized;
         rb.velocity = new Vector2(currentSpeed * inputVector.x, currentSpeed * inputVector.y);
 
-        spriteRenderer.flipX = x < 0;
+        if (x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
 
-        isRun = inputVector.magnitude > minMovingSpeed;
+        if (inputVector.magnitude > minMovingSpeed)
+        {
+            // isRun = Input.GetKey(KeyCode.LeftShift) && staminaValue > 0;
+            isRun = true;
+        }
+        else
+        {
+            isRun = false;
+        }
         animator.SetBool("IsRunning", isRun);
     }
 
