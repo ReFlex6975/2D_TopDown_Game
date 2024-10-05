@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     public float standartSpeed = 4f;
     public float staminaValue = 5f;
     public float currentSpeed;
+
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -17,9 +18,18 @@ public class Movement : MonoBehaviour
     public float minMovingSpeed = 0.1f;
     private bool isRun = false;
     private bool isAttacking = false;
+    private bool isDeath = false;
+    private bool isTakedamage = false;
+    private bool isInvincible = false;
 
-    public GameObject fireballPrefab; // Префаб огненного шара
-    public float fireballSpeed = 10f; // Скорость огненного шара
+    public GameObject fireballPrefab;
+    public float fireballSpeed = 10f;
+
+    public float maxHealth = 100f;
+    public float currentHealth;
+    public Slider healthSlider;
+
+    public float fireballSpawnOffset = 1f;
 
     void Start()
     {
@@ -27,9 +37,52 @@ public class Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-   
         staminaSlider.maxValue = 5f;
         staminaSlider.value = staminaValue;
+
+        currentHealth = maxHealth;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthSlider.value = currentHealth;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Персонаж погиб");
+        isDeath = true;
+        animator.SetBool("IsDeath", true);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && !isInvincible)
+        {
+            TakeDamage(20f);
+            Debug.Log("Персонаж получил урон");
+            isTakedamage = true;
+            animator.SetBool("IsTakedamage", true);
+
+            StartCoroutine(InvincibilityCoroutine());
+        }
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(2f);
+        isTakedamage = false;
+        animator.SetBool("IsTakedamage", false);
+        isInvincible = false;
     }
 
     void Update()
@@ -46,32 +99,20 @@ public class Movement : MonoBehaviour
             isAttacking = true;
             animator.SetBool("IsCharge", true);
 
-            // Выпускаем огненный шар
-            
-
             StartCoroutine(ResetMagicAttack());
         }
     }
 
-    public float fireballSpawnOffset = 1f; // Смещение от игрока для появления огненного шара
-
     private void ShootFireball()
     {
-        // Получаем позицию курсора в мире
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f; // Обнуляем ось Z, чтобы работать в 2D
+        mousePosition.z = 0f;
 
-        // Вычисляем направление от игрока к курсору
         Vector3 direction = (mousePosition - transform.position).normalized;
-
-        // Определяем позицию появления огненного шара с небольшим смещением от игрока
         Vector3 fireballSpawnPosition = transform.position + direction * fireballSpawnOffset;
 
-        // Создаем огненный шар на этой позиции
         GameObject fireball = Instantiate(fireballPrefab, fireballSpawnPosition, Quaternion.identity);
-
-        // Задаем движение огненного шара в направлении курсора
-        fireball.GetComponent<Rigidbody2D>().isKinematic = true; // Отключаем физику
+        fireball.GetComponent<Rigidbody2D>().isKinematic = true;
         fireball.GetComponent<Rigidbody2D>().velocity = direction * fireballSpeed;
 
         Destroy(fireball, 30f);
@@ -79,104 +120,71 @@ public class Movement : MonoBehaviour
 
     private IEnumerator ResetMagicAttack()
     {
-
         yield return new WaitForSeconds(1f);
         ShootFireball();
         Debug.Log("Атака магией завершена!");
         isAttacking = false;
-
         animator.SetBool("IsCharge", false);
-
     }
-
-
 
     private void HandleAttack()
     {
-       
-        
-            if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
-            {
-                Debug.Log("Атака начата!");
-                isAttacking = true;
-                animator.SetBool("IsAttacking", true);
+        if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
+        {
+            Debug.Log("Атака начата!");
+            isAttacking = true;
+            animator.SetBool("IsAttacking", true);
 
-            
-
-                StartCoroutine(ResetAttack());
-            }
-       
+            StartCoroutine(ResetAttack());
+        }
     }
 
     private IEnumerator ResetAttack()
     {
-        
         yield return new WaitForSeconds(0.5f);
         Debug.Log("Атака завершена!");
         isAttacking = false;
-        
         animator.SetBool("IsAttacking", false);
-        
     }
 
     private void FixedUpdate()
     {
-        
         HandleMovement();
     }
 
     private void HandleMovement()
     {
         staminaSlider.value = staminaValue;
-
         currentSpeed = standartSpeed;
         Stamina();
 
-      
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
         Vector2 inputVector = new Vector2(x, y).normalized;
         rb.velocity = new Vector2(currentSpeed * inputVector.x, currentSpeed * inputVector.y);
 
-        if (x > 0) // Движение вправо
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (x < 0) // Движение влево
-        {
-            spriteRenderer.flipX = true;
-        }
+        spriteRenderer.flipX = x < 0;
 
-     
-        if (inputVector.magnitude > minMovingSpeed)
-        {
-            // isRun = Input.GetKey(KeyCode.LeftShift) && staminaValue > 0;
-            isRun = true;
-        }
-        else
-        {
-            isRun = false;
-        }
-
-      
+        isRun = inputVector.magnitude > minMovingSpeed;
         animator.SetBool("IsRunning", isRun);
     }
 
     private void Stamina()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && staminaValue > 0) 
+        if (Input.GetKey(KeyCode.LeftShift) && staminaValue > 0)
         {
             staminaValue -= Time.deltaTime;
             currentSpeed = runSpeed;
         }
-        if (!(Input.GetKey(KeyCode.LeftShift) && staminaValue > 0)) 
+        if (!(Input.GetKey(KeyCode.LeftShift) && staminaValue > 0))
         {
             staminaValue += Time.deltaTime;
             currentSpeed = standartSpeed;
         }
-       
-        if (staminaValue >= 5) staminaValue = 5; 
+
+        if (staminaValue >= 5) staminaValue = 5;
         if (staminaValue <= 0) staminaValue = 0;
     }
 }
+
