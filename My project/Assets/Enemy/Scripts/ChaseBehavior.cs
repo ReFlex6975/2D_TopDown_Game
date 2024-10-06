@@ -4,15 +4,46 @@ using UnityEngine;
 
 public class ChaseBehavior : MonoBehaviour
 {
+    public float maxHealth = 100f;
+    public float currentHealth;
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Враг погиб");
+            Die(); // Вызываем метод смерти
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject); 
+    }
+    
+
     public Transform target; // Цель (игрок)
     public float chaseSpeed = 3.0f; // Скорость преследования
-    public float stopDistance = 10f; // Расстояние, на котором враг останавливается
+    public float stopDistance = 3f; // Расстояние, на котором враг останавливается
 
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Получаем SpriteRenderer
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        currentHealth = maxHealth;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            target = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Игрок с тегом 'Player' не найден.");
+        }
     }
 
     private void Update()
